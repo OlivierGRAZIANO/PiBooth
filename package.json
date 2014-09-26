@@ -1,0 +1,9 @@
+{
+  "name": "pibooth",
+  "version": "0.0.1",
+  "main": "server.js",
+  "dependencies" : {
+    "express" : "~4.0.0",
+	"twig" : "*"
+  }
+}
