@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  	<meta charset="UTF-8">
+  	<title>PhotoBooth</title>
+      <link rel="stylesheet" href="public/css/main.css">
+  </head>
+
+  <body>
+
+
+
+
+      <div id="content">
+      <img src="/public/img/pictures/pic_{{ imageId }}.jpg" alt="">
+    </div>
+
+    <script>
+      var serverUrl = '192.168.0.17'
+      setTimeout(function(){
+        document.location = 'http://'+serverUrl+':8080/start';
+      }, 5000)
+
+    </script>
+    
+  </body>
+
+</html>

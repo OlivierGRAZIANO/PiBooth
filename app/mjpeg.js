@@ -12,7 +12,7 @@ function Mjpeg(width, height, fps, rot){
 	
 }
 
-Mjpeg.prototype.start = function start(){
+Mjpeg.prototype.start = function start(callback){
 
 		var command = 'LD_LIBRARY_PATH=/opt/mjpg-streamer/ /opt/mjpg-streamer/mjpg_streamer -i "input_raspicam.so -fps '+this.fps+' -x '+this.width+' -y '+this.height+' -rot '+this.rot+'" -o "output_http.so -p 9000 -w /opt/mjpg-streamer/www" > /dev/null 2>&1&';
 
@@ -24,6 +24,9 @@ Mjpeg.prototype.start = function start(){
 		      console.log('exec error: '+error);
 		    }
 		});
+
+		if(typeof callback !== 'undefined')
+			callback();
 };
 
 Mjpeg.prototype.stop = function start(){
@@ -33,7 +36,17 @@ Mjpeg.prototype.stop = function start(){
 };
 
 Mjpeg.prototype.capture = function capture(){
-	//TODO: IMPLEMENT
+	var timestamp = new Date().getTime();
+	console.info(timestamp);
+	var command = 'raspistill -q 100 -o /home/pi/www/photobooth/public/img/pictures/pic_'+timestamp+'.jpg';
+	this.child = this.exec(command, function(error, stdout, stderr){
+
+		    if(error !== null){
+		      console.log('exec error: '+error);
+		      return 0;
+		    }
+	});
+	return timestamp;
 }
 
 module.exports = Mjpeg;
